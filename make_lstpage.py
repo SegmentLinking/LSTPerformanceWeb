@@ -35,6 +35,9 @@ def write_pages_v2(directory, objecttypes):
             "dz",
             "dzcoarse",
             "dzcoarsezoom",
+            "vxy",
+            "vxycoarse",
+            "vxycoarsezoom",
             ]
     breakdowns = ["_breakdown"]
     charges = [0, -1, 1]
