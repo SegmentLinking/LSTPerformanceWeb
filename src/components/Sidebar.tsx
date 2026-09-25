@@ -21,6 +21,11 @@ function getHardwareTag(dirName: string): 'GPU' | 'CPU' | null {
   return null;
 }
 
+function getSampleTag(dirName: string): 'QCD' | null {
+  if (/_qcd(_|$)/.test(dirName)) return 'QCD';
+  return null;
+}
+
 const TIMESTAMP_RE = /^\d{12}$/;
 
 function extractTimestamp(dirName: string): { timestamp: string | null; rest: string } {
@@ -104,6 +109,7 @@ const RunTreeItem: React.FC<{
   if (node.type === 'run') {
     const dirName = node.dir?.name ?? '';
     const hwTag = getHardwareTag(dirName);
+    const sampleTag = getSampleTag(dirName);
     const { timestamp } = extractTimestamp(dirName);
     return (
       <li
@@ -114,7 +120,8 @@ const RunTreeItem: React.FC<{
       >
         <div className="run-item-content">
           <span className="icon">🚀</span>
-          <span className="run-name">{node.name.replace(/_(gpu|cpu)$/, '')}</span>
+          <span className="run-name">{node.name.replace(/_(gpu|cpu)$/, '').replace(/_qcd(?=_|$)/, '')}</span>
+          {sampleTag && <span className="sample-tag">{sampleTag}</span>}
           {hwTag && <span className={`hw-tag hw-tag--${hwTag.toLowerCase()}`}>{hwTag}</span>}
           {timestamp && <span className="run-timestamp">{formatTimestamp(timestamp)}</span>}
           <span className="repo-tag">{node.dir?.repo.includes('2026') ? '2026' : 'Legacy'}</span>

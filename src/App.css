@@ -216,6 +216,21 @@ body, html, #root {
   color: white;
 }
 
+.sample-tag {
+  font-size: 0.65rem;
+  padding: 1px 5px;
+  border-radius: 8px;
+  font-weight: normal;
+  flex-shrink: 0;
+  background-color: #e2d9f3;
+  color: #4a2c82;
+}
+
+.run-item.selected .sample-tag {
+  background-color: #6f42c1;
+  color: white;
+}
+
 .tree-list {
   list-style: none;
   padding: 0;
